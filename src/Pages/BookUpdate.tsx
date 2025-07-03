@@ -1,9 +1,8 @@
-
-const Add_Book = () => {
+const BookUpdate = () => {
   return (
     <div>
       <form className="text-left border px-5 py-10 w-11/12 mx-auto my-8 rounded-md shadow-lg">
-        <h2 className="text-2xl font-bold text-center mb-10">Add a Book</h2>
+        <h2 className="text-2xl font-bold text-center mb-10">Update a Book</h2>
         {/* Book title and Author name section */}
         <section className="flex gap-5 max-sm:flex-col max-sm:mb-4 mb-4">
           <div className="w-1/2 max-sm:w-full">
@@ -83,4 +82,4 @@ const Add_Book = () => {
   );
 };
 
-export default Add_Book;
+export default BookUpdate;
