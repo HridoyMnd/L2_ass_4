@@ -12,7 +12,9 @@ const Navbar = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
-          <div className="text-xl font-bold text-blue-600">MyApp</div>
+          <div className="text-2xl font-extrabold tracking-wide text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 drop-shadow-md">
+            BOIGHOR
+          </div>
 
           {/* Desktop Menu */}
           <div className="hidden md:flex space-x-6">
@@ -57,7 +59,10 @@ const Navbar = () => {
           <NavLink to="/" className="text-gray-700 hover:text-blue-600">
             Home
           </NavLink>
-          <NavLink className="block text-gray-700 hover:text-blue-600" to="/all_books">
+          <NavLink
+            className="block text-gray-700 hover:text-blue-600"
+            to="/all_books"
+          >
             All Books
           </NavLink>
           <NavLink
