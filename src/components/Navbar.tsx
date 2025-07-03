@@ -17,13 +17,25 @@ const Navbar = () => {
           {/* Desktop Menu */}
           <div className="hidden md:flex space-x-6">
             <NavLink to="/" className="text-gray-700 hover:text-blue-600">
+              Home
+            </NavLink>
+            <NavLink
+              to="/all_books"
+              className="text-gray-700 hover:text-blue-600"
+            >
               All Books
             </NavLink>
-            <NavLink to="/add_book" className="text-gray-700 hover:text-blue-600">
+            <NavLink
+              to="/add_book"
+              className="text-gray-700 hover:text-blue-600"
+            >
               Add Book
             </NavLink>
-            <NavLink to="/book_summary" className="text-gray-700 hover:text-blue-600">
-              Book Summary
+            <NavLink
+              className="block text-gray-700 hover:text-blue-600"
+              to="/borrow_summary"
+            >
+              Borrow Summary
             </NavLink>
           </div>
 
@@ -42,14 +54,23 @@ const Navbar = () => {
       {/* Mobile Menu */}
       {isOpen && (
         <div className="md:hidden px-4 pb-4 space-y-2">
-          <NavLink className="block text-gray-700 hover:text-blue-600" to="/">
+          <NavLink to="/" className="text-gray-700 hover:text-blue-600">
+            Home
+          </NavLink>
+          <NavLink className="block text-gray-700 hover:text-blue-600" to="/all_books">
             All Books
           </NavLink>
-          <NavLink className="block text-gray-700 hover:text-blue-600" to="/add_book">
+          <NavLink
+            className="block text-gray-700 hover:text-blue-600"
+            to="/add_book"
+          >
             Add Book
           </NavLink>
-          <NavLink className="block text-gray-700 hover:text-blue-600" to="/book_summary">
-            Book Summary
+          <NavLink
+            className="block text-gray-700 hover:text-blue-600"
+            to="/borrow_summary"
+          >
+            Borrow Summary
           </NavLink>
         </div>
       )}

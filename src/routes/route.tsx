@@ -2,9 +2,7 @@ import { createBrowserRouter } from "react-router-dom";
 import Layout from "../Layout/Layout";
 import All_Books from "../Pages/All_Books";
 import Add_Book from "../Pages/Add_Book";
-import Book_Summary from "../Pages/Book_Summary";
-
-
+import Home from "../Pages/Home";
 
 export const router = createBrowserRouter([
     {
@@ -12,17 +10,17 @@ export const router = createBrowserRouter([
         element: <Layout/>,
         children: [
             {
-                path:"/",
+                path: "/",
+                element: <Home/>
+            },
+            {
+                path:"/all_books",
                 element:<All_Books/>
             },
             {
                 path:"/add_book",
                 element:<Add_Book/>
             },
-            {
-                path:"/book_summary",
-                element:<Book_Summary/>
-            }
         ]
     }
 ])
