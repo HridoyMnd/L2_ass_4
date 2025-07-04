@@ -18,23 +18,23 @@ const Navbar = () => {
 
           {/* Desktop Menu */}
           <div className="hidden md:flex space-x-6">
-            <NavLink to="/" className="text-gray-700 hover:text-blue-600">
+            <NavLink to="/" className={({isActive}) => `${isActive?"text-blue-500":"text-gray-700"}`}>
               Home
             </NavLink>
             <NavLink
               to="/all_books"
-              className="text-gray-700 hover:text-blue-600"
+              className={({isActive}) => `${isActive?"text-blue-500":"text-gray-700"}`}
             >
               All Books
             </NavLink>
             <NavLink
               to="/add_book"
-              className="text-gray-700 hover:text-blue-600"
+              className={({isActive}) => `${isActive?"text-blue-500":"text-gray-700"}`}
             >
               Add Book
             </NavLink>
             <NavLink
-              className="block text-gray-700 hover:text-blue-600"
+              className={({isActive}) => `${isActive?"text-blue-500":"text-gray-700"}`}
               to="/borrow_summary"
             >
               Borrow Summary
