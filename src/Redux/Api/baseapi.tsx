@@ -2,12 +2,20 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export const baseAPI = createApi({
   reducerPath: "baseAPI",
-  baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:4300" }),
+  baseQuery: fetchBaseQuery({
+    baseUrl: "https://l2-assignment-3-two.vercel.app/",
+  }),
   tagTypes: ["Books"],
   endpoints: (builder) => ({
-    // get book
+    // get books
     getBooks: builder.query({
-      query: () => "/books",
+      query: () => "/api/books",
+      providesTags: ["Books"],
+    }),
+
+    // get a single book
+    getBook: builder.query({
+      query: (id) => `api/books/${id}`,
       providesTags: ["Books"],
     }),
 
@@ -18,6 +26,24 @@ export const baseAPI = createApi({
         method: "POST",
         body: bookData,
       }),
+    }),
+    // add borrow book
+    addBorrow: builder.mutation({
+      query: (borrowData) => ({
+        url: "/add_borrow",
+        method: "POST",
+        body: borrowData,
+      }),
+    }),
+
+    // update a book info
+    updateBook: builder.mutation({
+      query: ({ id, data }) => ({
+        url: `api/books/${id}`,
+        method: "PUT",
+        body: data,
+      }),
+      invalidatesTags: ["Books"],
     }),
 
     //delete book
@@ -31,4 +57,11 @@ export const baseAPI = createApi({
   }),
 });
 
-export const { useGetBooksQuery, useAddBookMutation, useDeleteBookMutation } = baseAPI;
+export const {
+  useGetBooksQuery,
+  useAddBookMutation,
+  useDeleteBookMutation,
+  useAddBorrowMutation,
+  useGetBookQuery,
+  useUpdateBookMutation
+} = baseAPI;

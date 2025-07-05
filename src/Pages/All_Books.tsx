@@ -1,12 +1,16 @@
 import { Link } from "react-router-dom";
-import { useDeleteBookMutation, useGetBooksQuery } from "../Redux/Api/baseapi";
+import {
+  useAddBorrowMutation,
+  useDeleteBookMutation,
+  useGetBooksQuery,
+} from "../Redux/Api/baseapi";
 import Swal from "sweetalert2";
 
 // Books fake Data
 const All_Books = () => {
   const { data, isLoading } = useGetBooksQuery(undefined);
   const [deleteBook] = useDeleteBookMutation();
-
+  const [] = useAddBorrowMutation();
   //handle book delete
   const handleDelete = async (id: string) => {
     Swal.fire({
@@ -82,7 +86,7 @@ const All_Books = () => {
               <td className="py-2">
                 <div className="flex flex-col md:flex-row items-center justify-center gap-2">
                   <Link
-                    to="/book_update"
+                    to={`/book_update/${book._id}`}
                     className="bg-blue-200 font-medium text-blue-700 w-24 text-center py-1 rounded hover:bg-blue-400 hover:text-white duration-300 text-sm"
                   >
                     Edit
