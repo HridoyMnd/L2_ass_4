@@ -1,34 +1,26 @@
+import { useGetBorrowBooksQuery } from "../Redux/Api/baseapi";
+type BookInfo = {
+  title: string;
+  isbn: string;
+  totalQuantity: number;
+};
+
+type BorrowBookSummary = {
+  totalQuantity: number;
+  book: BookInfo;
+};
 
 const Borrow_Summary = () => {
+  const { data, isLoading } = useGetBorrowBooksQuery(undefined);
+  const book_summary = data?.data as BorrowBookSummary[];
 
+  if (isLoading) {
+    return <p>Loading...</p>;
+  }
 
-  // Borrow summary fake data
-      const all_books = [
-    {
-      title: "The Alchemist",
-      author: "Paulo Coelho",
-      genre: "Adventure",
-      isbn: "9780061122415",
-      copies: 5,
-      available: true,
-    },
-    {
-      title: "Atomic Habits",
-      author: "James Clear",
-      genre: "Self-Help",
-      isbn: "9780735211292",
-      copies: 3,
-      available: false,
-    },
-    {
-      title: "Harry Potter",
-      author: "J.K. Rowling",
-      genre: "Fantasy",
-      isbn: "9780747532743",
-      copies: 10,
-      available: true,
-    },
-  ];
+  if (!book_summary || book_summary.length === 0) {
+    return <p>No borrow records found.</p>;
+  }
 
   return (
     <div className="overflow-x-auto w-10/12 mx-auto my-5">
@@ -42,14 +34,17 @@ const Borrow_Summary = () => {
           </tr>
         </thead>
         {/* table body */}
-        <tbody>
-          {all_books.map((book, index) => (
+       <tbody>
+          {book_summary?.map((item, index:number) => {
+             const book = item.book;
+             return (
             <tr key={index} className="border-t hover:bg-gray-50">
-              <td className="px-4 py-2 text-center border-r">{book.title}</td>
-              <td className="px-4 py-2 text-center border-r">{book.isbn}</td>
-              <td className="px-4 py-2 text-center border-r">{book.copies}</td>
+              <td className="px-4 py-2 text-center border-r">{book?.title}</td>
+              <td className="px-4 py-2 text-center border-r">{book?.isbn}</td>
+              <td className="px-4 py-2 text-center border-r">{item.totalQuantity}</td>
             </tr>
-          ))}
+          )
+          } )}
         </tbody>
       </table>
     </div>
