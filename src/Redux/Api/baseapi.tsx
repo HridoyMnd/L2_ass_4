@@ -1,4 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { data } from "react-router-dom";
 
 export const baseAPI = createApi({
   reducerPath: "baseAPI",
@@ -9,37 +10,40 @@ export const baseAPI = createApi({
   endpoints: (builder) => ({
     // get books
     getBooks: builder.query({
-      query: () => "/api/books",
+      query: () => "/books",
       providesTags: ["Books"],
     }),
 
     // get a single book
     getBook: builder.query({
-      query: (id) => `api/books/${id}`,
+      query: (id) => `/books/${id}`,
       providesTags: ["Books"],
     }),
 
     // add book
     addBook: builder.mutation({
       query: (bookData) => ({
-        url: "/create_book",
+        url: "/create-book",
         method: "POST",
         body: bookData,
       }),
+      invalidatesTags: ["Books"],
     }),
+    
     // add borrow book
     addBorrow: builder.mutation({
-      query: (borrowData) => ({
-        url: "/add_borrow",
+      query: ({ bookId, ...data}) => ({
+        url: `/borrow/${bookId}`,
         method: "POST",
-        body: borrowData,
+        body: data,
       }),
+       invalidatesTags: ["Books"],
     }),
 
     // update a book info
     updateBook: builder.mutation({
       query: ({ id, data }) => ({
-        url: `api/books/${id}`,
+        url: `/edit-book/${id}`,
         method: "PUT",
         body: data,
       }),
@@ -49,7 +53,7 @@ export const baseAPI = createApi({
     //delete book
     deleteBook: builder.mutation<void, string>({
       query: (id) => ({
-        url: `/delete_book/${id}`,
+        url: `/api/books/${id}`,
         method: "DELETE",
       }),
       invalidatesTags: ["Books"],

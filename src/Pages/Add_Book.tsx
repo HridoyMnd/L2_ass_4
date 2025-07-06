@@ -1,16 +1,17 @@
 import { useState } from "react";
-import { useAddBookMutation } from "../Redux/Api/baseapi";
+import { useAddBookMutation, } from "../Redux/Api/baseapi";
+import { useNavigate } from "react-router-dom";
 
 const Add_Book = () => {
-  const [createBook, { data, isLoading, isError }] = useAddBookMutation();
-
+  const navigate = useNavigate();
+  const [createBook] = useAddBookMutation();
   const [formData, setFormData] = useState({
     title: "",
     author: "",
     genre: "",
-    isbn_number: "",
+    isbn: "",
     description: "",
-    copies_number: "",
+    copies: 0,
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -26,13 +27,13 @@ const Add_Book = () => {
     const BookData = {
       ...formData,
       isComplete: false,
-      copies_number: Number(formData.copies_number),
-      isbn_number: Number(formData.isbn_number),
+      copies_number: Number(formData.copies),
     };
 
     try {
       const res = await createBook(BookData).unwrap();
       console.log("Success:", res);
+      navigate(`/all_books`)
     } catch (err) {
       console.error("Error:", err);
     }
@@ -89,9 +90,9 @@ const Add_Book = () => {
           <div className="w-1/2 max-sm:w-full">
             <label className="ml-3">ISBN </label>
             <input
-              type="number"
-              name="isbn_number"
-              value={formData.isbn_number}
+              type="text"
+              name="isbn"
+              value={formData.isbn}
               onChange={handleChange}
               required
               placeholder="ISBN number"
@@ -117,8 +118,8 @@ const Add_Book = () => {
             <label className="ml-3">Copies</label>
             <input
               type="number"
-              name="copies_number"
-              value={formData.copies_number}
+              name="copies"
+              value={formData.copies}
               onChange={handleChange}
               required
               placeholder="Copies number"

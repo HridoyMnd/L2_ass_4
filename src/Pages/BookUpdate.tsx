@@ -1,37 +1,37 @@
 import { useParams } from "react-router-dom";
 import { useGetBookQuery, useUpdateBookMutation } from "../Redux/Api/baseapi";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const BookUpdate = () => {
-  // book id from params
   const { id } = useParams();
   const { data, isLoading, error } = useGetBookQuery(id);
   const [updateBook] = useUpdateBookMutation();
+  const navigate = useNavigate()
 
-  const [formData, setFormData] = useState({
-    title: "",
-    author: "",
-    genre: "",
-    isbn_number: "",
-    description: "",
-    copies_number: "",
-  });
+const [formData, setFormData] = useState({
+  title: "",
+  author: "",
+  genre: "",
+  isbn: "",
+  description: "",
+  copies: 0, // Number type
+});
 
-  // fetch করা data formData তে বসাও
-  useEffect(() => {
-    if (data?.data) {
-      const { title, author, genre, isbn, description, copies } = data.data;
+useEffect(() => {
+  if (data?.data) {
+    const { title, author, genre, isbn, description, copies } = data.data;
 
-      setFormData({
-        title,
-        author,
-        genre,
-        isbn_number: isbn.toString(),
-        description,
-        copies_number: copies.toString(),
-      });
-    }
-  }, [data]);
+    setFormData({
+      title,
+      author,
+      genre,
+      isbn, 
+      description,
+      copies, 
+    });
+  }
+}, [data]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({
@@ -45,14 +45,14 @@ const BookUpdate = () => {
 
     const BookData = {
       ...formData,
-      isbn_number: Number(formData.isbn_number),
-      copies_number: Number(formData.copies_number),
+      copies: Number(formData.copies),
       isComplete: false,
     };
 
     try {
       const res = await updateBook({ id, data: BookData }).unwrap();
       console.log("Updated successfully", res);
+      navigate(`/all_books`)
     } catch (err) {
       console.error("Update failed", err);
     }
@@ -76,7 +76,6 @@ const BookUpdate = () => {
               placeholder="Book title"
               value={formData.title}
               onChange={handleChange}
-              // defaultValue={title}
               required
               name="title"
               className="outline-none rounded-md focus:shadow-md  px-4 w-full py-2 border"
@@ -87,7 +86,6 @@ const BookUpdate = () => {
             <input
               type="text"
               placeholder="Author name"
-              // value={author}/
               required
               name="author"
               value={formData.author}
@@ -103,7 +101,6 @@ const BookUpdate = () => {
             <input
               type="text"
               placeholder="Genre"
-              // defaultValue={genre}
               required
               name="genre"
               value={formData.genre}
@@ -116,10 +113,9 @@ const BookUpdate = () => {
             <input
               type="text"
               placeholder="ISBN number"
-              // defaultValue={isbn}
               required
-              name="isbn_number"
-              value={formData.isbn_number}
+              name="isbn"
+              value={formData.isbn}
               onChange={handleChange}
               className="outline-none rounded-md focus:shadow-md  px-4 w-full py-2 border"
             />
@@ -132,7 +128,6 @@ const BookUpdate = () => {
             <input
               type="text"
               placeholder="Sort description"
-              // defaultValue={description}
               required
               name="description"
               value={formData.description}
@@ -145,10 +140,9 @@ const BookUpdate = () => {
             <input
               type="number"
               placeholder="Copies number"
-              // defaultValue={copies}
               required
-              name="copies_number"
-              value={formData.copies_number}
+              name="copies"
+              value={formData.copies}
               onChange={handleChange}
               className="outline-none rounded-md focus:shadow-md  px-4 w-full py-2 border"
             />
