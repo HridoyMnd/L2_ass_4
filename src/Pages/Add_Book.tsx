@@ -1,6 +1,7 @@
 import { useState } from "react";
-import { useAddBookMutation, } from "../Redux/Api/baseapi";
+import { useAddBookMutation } from "../Redux/Api/baseapi";
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const Add_Book = () => {
   const navigate = useNavigate();
@@ -33,18 +34,23 @@ const Add_Book = () => {
     try {
       const res = await createBook(BookData).unwrap();
       console.log("Success:", res);
-      navigate(`/all_books`)
+      Swal.fire({
+        title: "Book Added Succesfully",
+        text: res.message,
+        icon: "success",
+      });
+      navigate(`/all_books`);
     } catch (err) {
       console.error("Error:", err);
     }
   };
 
-
   return (
     <div>
       <form
-      onSubmit={onSubmit}
-      className="text-left border px-5 py-10 w-11/12 mx-auto my-8 rounded-md shadow-lg">
+        onSubmit={onSubmit}
+        className="text-left border px-5 py-10 w-11/12 mx-auto my-8 rounded-md shadow-lg"
+      >
         <h2 className="text-2xl font-bold text-center mb-10">Add a Book</h2>
         {/* Book title and Author name section */}
         <section className="flex gap-5 max-sm:flex-col max-sm:mb-4 mb-4">
@@ -129,8 +135,9 @@ const Add_Book = () => {
         </section>
         {/* form submit button */}
         <button
-        type="submit"
-         className="w-3/6 max-sm:w-9/12 max-md:w-3/6 mx-auto text-lg py-2 font-semibold rounded-md border bg-blue-500 bg-opacity-45 hover:bg-opacity-70 duration-300 block mt-10">
+          type="submit"
+          className="w-3/6 max-sm:w-9/12 max-md:w-3/6 mx-auto text-lg py-2 font-semibold rounded-md border bg-blue-500 bg-opacity-45 hover:bg-opacity-70 duration-300 block mt-10"
+        >
           Submit
         </button>
       </form>

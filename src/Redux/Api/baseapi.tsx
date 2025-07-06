@@ -13,6 +13,12 @@ export const baseAPI = createApi({
       providesTags: ["Books"],
     }),
 
+    // latest books
+    latest_books: builder.query({
+      query: () => "/latest_books",
+      providesTags: ["Books"],
+    }),
+
     // get a single book
     getBook: builder.query({
       query: (id) => `/books/${id}`,
@@ -74,5 +80,6 @@ export const {
   useAddBorrowMutation,
   useGetBookQuery,
   useUpdateBookMutation,
-  useGetBorrowBooksQuery
+  useGetBorrowBooksQuery,
+  useLatest_booksQuery
 } = baseAPI;

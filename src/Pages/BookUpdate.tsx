@@ -3,38 +3,41 @@ import { useGetBookQuery, useUpdateBookMutation } from "../Redux/Api/baseapi";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Loader from "../components/Loader";
+import Swal from "sweetalert2";
 
 const BookUpdate = () => {
   const { id } = useParams();
   const { data, isLoading, error } = useGetBookQuery(id);
   const [updateBook] = useUpdateBookMutation();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
-const [formData, setFormData] = useState({
-  title: "",
-  author: "",
-  genre: "",
-  isbn: "",
-  description: "",
-  copies: 0, // Number type
-});
+  const [formData, setFormData] = useState({
+    title: "",
+    author: "",
+    genre: "",
+    isbn: "",
+    description: "",
+    copies: 0, // Number type
+  });
 
-useEffect(() => {
-  if (data?.data) {
-    const { title, author, genre, isbn, description, copies } = data.data;
+  useEffect(() => {
+    if (data?.data) {
+      const { title, author, genre, isbn, description, copies } = data.data;
 
-    setFormData({
-      title,
-      author,
-      genre,
-      isbn, 
-      description,
-      copies, 
-    });
-  }
-}, [data]);
+      setFormData({
+        title,
+        author,
+        genre,
+        isbn,
+        description,
+        copies,
+      });
+    }
+  }, [data]);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
@@ -53,13 +56,18 @@ useEffect(() => {
     try {
       const res = await updateBook({ id, data: BookData }).unwrap();
       console.log("Updated successfully", res);
-      navigate(`/all_books`)
+      Swal.fire({
+        title: "Book Updated SuccessFully",
+        text: res.message,
+        icon: "success",
+      });
+      navigate(`/all_books`);
     } catch (err) {
       console.error("Update failed", err);
     }
   };
 
-  if (isLoading) return <Loader/>;
+  if (isLoading) return <Loader />;
   if (error) return <p>Error loading book data</p>;
   return (
     <div>

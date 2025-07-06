@@ -1,8 +1,10 @@
+import Latest_Book from "../components/Latest_Book";
 
 const Home = () => {
     return (
         <div>
-            <h2>Home Page</h2>
+
+            <Latest_Book/>
         </div>
     );
 };
