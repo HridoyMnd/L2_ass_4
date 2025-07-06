@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom";
 import { useGetBookQuery, useUpdateBookMutation } from "../Redux/Api/baseapi";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Loader from "../components/Loader";
 
 const BookUpdate = () => {
   const { id } = useParams();
@@ -58,7 +59,7 @@ useEffect(() => {
     }
   };
 
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading) return <Loader/>;
   if (error) return <p>Error loading book data</p>;
   return (
     <div>

@@ -4,6 +4,7 @@ import {
   useGetBooksQuery,
 } from "../Redux/Api/baseapi";
 import Swal from "sweetalert2";
+import Loader from "../components/Loader";
 
 
 const All_Books = () => {
@@ -34,7 +35,7 @@ const All_Books = () => {
   };
 
   if (isLoading) {
-    return <p>Loading....</p>;
+    return <Loader/>
   }
 
   // book type declear

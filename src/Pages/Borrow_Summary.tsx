@@ -1,3 +1,4 @@
+import Loader from "../components/Loader";
 import { useGetBorrowBooksQuery } from "../Redux/Api/baseapi";
 type BookInfo = {
   title: string;
@@ -15,7 +16,7 @@ const Borrow_Summary = () => {
   const book_summary = data?.data as BorrowBookSummary[];
 
   if (isLoading) {
-    return <p>Loading...</p>;
+    return <Loader/>
   }
 
   if (!book_summary || book_summary.length === 0) {
