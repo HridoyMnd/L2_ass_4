@@ -25,6 +25,7 @@ const Borrow_Summary = () => {
 
   return (
     <div className="overflow-x-auto w-10/12 mx-auto my-5">
+      <h2 className="text-center font-bold text-2xl">All Borrowed Book</h2>
       <table className="min-w-full text-sm text-left bg-white border rounded shadow-md">
         {/* table header */}
         <thead className="bg-gray-100 text-gray-700 uppercase">
