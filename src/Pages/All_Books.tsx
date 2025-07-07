@@ -51,7 +51,7 @@ const All_Books = () => {
 
   return (
     <div className="overflow-x-auto my-6">
-<h2 className="text-center font-bold text-2xl">All Books</h2>
+<h2 className="text-center font-bold text-2xl my-6">All Books</h2>
       <table className="w-[98%] mx-auto text-sm text-left bg-white border rounded shadow-md ">
         <thead className="bg-gray-100 text-gray-700 uppercase">
           <tr>
